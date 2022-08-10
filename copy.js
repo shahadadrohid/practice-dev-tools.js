@@ -1,7 +1,9 @@
 const displayCartItem = () => {
     const cart = getCart()
+    console.log(cart)
     for (const name in cart) {
         displayProduct(name)
+        console.log(name)
     }
 }
 const addItem = () => {
@@ -17,6 +19,7 @@ const addItem = () => {
 }
 
 const displayProduct = name => {
+    console.log(name)
     const ul = document.getElementById('products');
     const li = document.createElement('li');
     li.innerText = name;
@@ -24,7 +27,8 @@ const displayProduct = name => {
 }
 
 const getCart = () => {
-    const cart = localStorage.getItem('cart');
+    const cart = localStorage.getItem('cart')
+    console.log(cart)
     let cartObj;
     if (cart) {
         cartObj = JSON.parse(cart)
@@ -37,11 +41,13 @@ const getCart = () => {
 
 const addProductToCart = name => {
     const cart = getCart();
+    console.log(cart)
     if (cart[name]) {
         cart[name] = cart[name] + 1;
     }
     else {
         cart[name] = 1;
+        console.log(cart)
     }
     const cartStringify = JSON.stringify(cart);
     localStorage.setItem('cart', cartStringify)

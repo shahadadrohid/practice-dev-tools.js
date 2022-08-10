@@ -2,11 +2,13 @@ const shopping = () => {
     // Get product name 
     const getProductInput = document.getElementById('product');
     const getInputProduct = getProductInput.value;
+    if (!getInputProduct) {
+        return;
+    }
 
     // get product price 
     const getProductPrice = document.getElementById('product-price');
-    const productPrice = getProductPrice.value;
-    // console.log(getInputProduct, productPrice)
+    const productPrice = parseInt(getProductPrice.value);
 
     getProductInput.value = '';
     getProductPrice.value = '';
@@ -26,7 +28,25 @@ const inputLocalStorage = (name, price) => {
         productsObj = {};
         productsObj[name] = price;
     }
+
+    // Stringify the object 
     const productStringify = JSON.stringify(productsObj);
     localStorage.setItem('products', productStringify)
-    console.log(productStringify)
 }
+
+const displayProducts = () => {
+
+    // Get item from local storage and parse it 
+    const productsParse = localStorage.getItem('products')
+    const getParse = JSON.parse(productsParse)
+
+    // Create p and append on div 
+    const divContent = document.getElementById('products');
+    const p = document.createElement('p');
+    p.innerHTML = `
+    <h4>Name: ${Object.keys(getParse)}</h4>
+    <h4>Price: ${Object.values(getParse)}</h4>
+    `;
+    divContent.appendChild(p)
+}
+displayProducts()
